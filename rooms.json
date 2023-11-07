@@ -1,0 +1,44 @@
+[
+    {
+        "name": "Lover's Room with a View",
+        "imageURLs": [
+            "https://assets-global.website-files.com/5c6d6c45eaa55f57c6367749/628d35e739bf0b59fac62a8d_Hotel%20Room%20with%20a%20View%20(1)%20(1)%20(1).jpg",
+            "https://www.italianbark.com/wp-content/uploads/2018/01/hotel-room-design-trends-italianbark-interior-design-blog.jpg",
+            "https://assets-global.website-files.com/5c6d6c45eaa55f57c6367749/628d35d6b9575f5b35b4231a_Twin%20Hotel%20Room%20(1)%20(1).jpg"
+        ],
+        "rentPerDay": 4500,
+        "type": "Non-Deluxe",
+        "maxCount": 3,
+        "phoneNumber": 9152241126,
+        "currentBookings": [],
+        "description": "A Lover's Hotel Room with a View is the epitome of romantic luxury, designed to create an enchanting atmosphere for couples seeking a memorable escape. This room is typically located in a high-rise or scenic location, providing a breathtaking view that adds to the overall ambiance."
+    },
+    {
+        "name": "Deluxe Room with a View",
+        "imageURLs": [
+            "https://www.italianbark.com/wp-content/uploads/2018/01/hotel-room-design-trends-italianbark-interior-design-blog.jpg",
+            "https://assets-global.website-files.com/5c6d6c45eaa55f57c6367749/628d35e739bf0b59fac62a8d_Hotel%20Room%20with%20a%20View%20(1)%20(1)%20(1).jpg",
+            "https://assets-global.website-files.com/5c6d6c45eaa55f57c6367749/628d35d6b9575f5b35b4231a_Twin%20Hotel%20Room%20(1)%20(1).jpg"
+        ],
+        "rentPerDay": 1500,
+        "type": "Deluxe",
+        "maxCount": 3,
+        "phoneNumber": 9152241126,
+        "currentBookings": [],
+        "description": "A Deluxe Room with a View offers a touch of opulence and an unforgettable panorama, typically found in upscale hotels and resorts."
+    },
+    {
+        "name": "Executive Suite Room",
+        "imageURLs": [
+            "https://assets-global.website-files.com/5c6d6c45eaa55f57c6367749/628d35d6b9575f5b35b4231a_Twin%20Hotel%20Room%20(1)%20(1).jpg",
+            "https://assets-global.website-files.com/5c6d6c45eaa55f57c6367749/628d35e739bf0b59fac62a8d_Hotel%20Room%20with%20a%20View%20(1)%20(1)%20(1).jpg",
+            "https://www.italianbark.com/wp-content/uploads/2018/01/hotel-room-design-trends-italianbark-interior-design-blog.jpg"
+        ],
+        "rentPerDay": 9500,
+        "type": "Deluxe",
+        "maxCount": 2,
+        "phoneNumber": 9152241126,
+        "currentBookings": [],
+        "description": "An Executive Suite Hotel Room is the epitome of upscale accommodation, designed to provide both comfort and functionality for discerning travelers. "
+    }
+]
