@@ -131,7 +131,7 @@ function HomeScreen() {
                     <select value={type} onChange={(e) => { filterByType(e.target.value) }}>
                         <option value="all">All</option>
                         <option value="deluxe">Deluxe</option>
-                        <option value="non-deluxe">Non-Deluxe</option>
+                        <option value="non-deluxe">NON-DELUXE</option>
                     </select>
                 </div>
             </div>
