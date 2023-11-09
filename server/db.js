@@ -1,15 +1,17 @@
 const mongoose = require("mongoose");
+require("dotenv").config();
 
-var mongoURL = 'mongodb+srv://CPES5_PRAN:9pPFBUqIAUbqIq4a@cluster0.vkk9ndn.mongodb.net/MERN-CustomerInfo'
-mongoose.connect(mongoURL, {useUnifiedTopology: true, useNewUrlParser: true})
+const mongoURL = process.env.MONGO_URL;
 
-var connection = mongoose.connection
-connection.on('error', ()=>{
-    console.log('MongoDB Connection failed.')
-})
+mongoose.connect(mongoURL, { useUnifiedTopology: true, useNewUrlParser: true });
 
-connection.on('connected', ()=>{
-    console.log('MongoDB Connection successful')
-})
+var connection = mongoose.connection;
+connection.on("error", () => {
+  console.log("MongoDB Connection failed.");
+});
 
-module.exports = mongoose
+connection.on("connected", () => {
+  console.log("MongoDB Connection successful");
+});
+
+module.exports = mongoose;
