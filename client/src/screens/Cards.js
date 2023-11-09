@@ -5,34 +5,36 @@ import "./Cards.css";
 function Cards() {
   return (
     <div className="cards">
-      <h1>Check out these epic destinations!</h1>
+      <div className="cards__header">
+        <h1>Explore These Breathtaking Destinations</h1>
+      </div>
       <div className="cards__container">
-        <ul className="cards__items">
+        <div className="cards__items">
           <CardItem
-            src="images/waterfall.jpg"
-            text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eu cursus mauris. Pellentesque eleifend luctus lacus nec molestie. Vivamus id tempor erat. In hac habitasse platea dictumst. Etiam vel orci venenatis, efficitur quam eget, sagittis nibh. Integer sit amet iaculis urna, consequat sollicitudin justo. Nulla congue a odio dapibus pellentesque. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nunc faucibus enim felis, et pellentesque lorem condimentum id. Integer malesuada turpis neque, id mollis urna vestibulum quis."
-            label="Adventure"
+            src="images/tower.jpg"
+            text="Iconic Batanes Tower offers breathtaking views of nature's beauty."
+            
             path="/services"
           />
           <CardItem
-            src="images/waterfall.jpg"
-            text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eu cursus mauris. Pellentesque eleifend luctus lacus nec molestie. Vivamus id tempor erat. In hac habitasse platea dictumst. Etiam vel orci venenatis, efficitur quam eget, sagittis nibh. Integer sit amet iaculis urna, consequat sollicitudin justo. Nulla congue a odio dapibus pellentesque. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nunc faucibus enim felis, et pellentesque lorem condimentum id. Integer malesuada turpis neque, id mollis urna vestibulum quis."
-            label="Luxury"
+            src="images/hills.jpg"
+            text="Scenic Batanes Hills and Coastal Road offer picturesque drives through stunning landscapes."
+            
             path="/services"
           />
           <CardItem
-            src="images/waterfall.jpg"
-            text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eu cursus mauris. Pellentesque eleifend luctus lacus nec molestie. Vivamus id tempor erat. In hac habitasse platea dictumst. Etiam vel orci venenatis, efficitur quam eget, sagittis nibh. Integer sit amet iaculis urna, consequat sollicitudin justo. Nulla congue a odio dapibus pellentesque. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nunc faucibus enim felis, et pellentesque lorem condimentum id. Integer malesuada turpis neque, id mollis urna vestibulum quis."
-            label="Adventure"
+            src="images/water.jpg"
+            text="Explore the pristine coastal seas of Batanes, where crystal-clear waters meet dramatic coastlines for a truly captivating experience."
+            
             path="/services"
           />
           <CardItem
-            src="images/waterfall.jpg"
-            text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eu cursus mauris. Pellentesque eleifend luctus lacus nec molestie. Vivamus id tempor erat. In hac habitasse platea dictumst. Etiam vel orci venenatis, efficitur quam eget, sagittis nibh. Integer sit amet iaculis urna, consequat sollicitudin justo. Nulla congue a odio dapibus pellentesque. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nunc faucibus enim felis, et pellentesque lorem condimentum id. Integer malesuada turpis neque, id mollis urna vestibulum quis."
-            label="Adventure"
+            src="images/rocks.jpg"
+            text="Batanes' coastal seas shine even brighter on a sunny day, creating a picturesque paradise."
+            
             path="/services"
           />
-        </ul>
+        </div>
       </div>
     </div>
   );
