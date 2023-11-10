@@ -10,6 +10,7 @@ function RegisterScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [cPassword, setcPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState();
@@ -72,7 +73,7 @@ function RegisterScreen() {
               }}
             ></input>
             <input
-              type="text"
+              type={showPassword ? "text" : "password"}
               className="form-control"
               placeholder="Password"
               value={password}
@@ -81,7 +82,7 @@ function RegisterScreen() {
               }}
             ></input>
             <input
-              type="text"
+              type={showPassword ? "text" : "password"}
               className="form-control"
               placeholder="Confirm Password"
               value={cPassword}

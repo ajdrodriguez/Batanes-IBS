@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 function LoginScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
@@ -46,15 +47,17 @@ function LoginScreen() {
                 setEmail(e.target.value);
               }}
             ></input>
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
-            ></input>
+            <div>
+              <input
+                type={showPassword ? "text" : "password"}
+                className="form-control"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+              />
+            </div>
             <button className="btn btn-primary mt-3" onClick={Login}>
               Login
             </button>
