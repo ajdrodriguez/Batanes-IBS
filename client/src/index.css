@@ -1,17 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap");
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: 'Montserrat', sans-serif !important;
+  font-family: "Montserrat", sans-serif !important;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
@@ -19,47 +19,48 @@ p {
   font-size: 15px !important;
 }
 
-.navbar{
+.navbar {
   background-color: black !important;
 }
 
-.nav-link{
+.nav-link {
   color: white !important;
 }
 
-.navbar-brand{
+.navbar-brand {
   color: white !important;
 }
 
-.navbar-nav{
+.navbar-nav {
   margin-left: auto !important;
 }
 
-.smallimg{
-  height: 200px;
+.smallimg {
+  height: 100% !important;
   width: 100% !important;
   border-radius: 5px !important;
 }
 
-h1{
-  font-size: 20px !important
+h1 {
+  font-size: 20px !important;
 }
 
-.btn{
+.btn {
   background-color: black !important;
   color: white !important;
   box-shadow: none !important;
 }
 
-.bs{
+.bs {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   margin-top: 20px !important;
   border-radius: 5px !important;
   padding: 20px !important;
 }
 
-.bigimg{
-  height: 400px;
+.bigimg {
+  height: auto !important;
+  width: 100% !important;
   border-radius: 5px !important;
 }
 
@@ -73,7 +74,7 @@ h1{
 }
 
 .loader:before {
-  content: '';
+  content: "";
   width: 6px;
   height: 6px;
   border-radius: 50%;
@@ -83,7 +84,8 @@ h1{
   top: 37px;
   left: 19px;
   transform: translate(-18px, -18px);
-  animation: dotRect var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+  animation: dotRect var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86)
+    infinite;
 }
 
 .loader svg {
@@ -92,7 +94,9 @@ h1{
   height: 100%;
 }
 
-.loader svg rect, .loader svg polygon, .loader svg circle {
+.loader svg rect,
+.loader svg polygon,
+.loader svg circle {
   fill: none;
   stroke: var(--path);
   stroke-width: 10px;
@@ -103,7 +107,8 @@ h1{
 .loader svg polygon {
   stroke-dasharray: 145 76 145 76;
   stroke-dashoffset: 0;
-  animation: pathTriangle var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+  animation: pathTriangle var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86)
+    infinite;
 }
 
 .loader svg rect {
@@ -115,7 +120,8 @@ h1{
 .loader svg circle {
   stroke-dasharray: 150 50 150 50;
   stroke-dashoffset: 75;
-  animation: pathCircle var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+  animation: pathCircle var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86)
+    infinite;
 }
 
 .loader.triangle {
@@ -125,7 +131,8 @@ h1{
 .loader.triangle:before {
   left: 21px;
   transform: translate(-10px, -18px);
-  animation: dotTriangle var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+  animation: dotTriangle var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86)
+    infinite;
 }
 
 @keyframes pathTriangle {
@@ -215,8 +222,9 @@ h1{
   margin: 0 16px;
 }
 
-
-input , select, .ant-picker{
+input,
+select,
+.ant-picker {
   box-shadow: none !important;
   border: 2px solid black !important;
   border-radius: 10px !important;
@@ -224,27 +232,27 @@ input , select, .ant-picker{
   width: 100% !important;
 }
 
-h2{
+h2 {
   font-size: 30px;
   padding: 10px;
   font-weight: bold;
   text-align: center;
 }
 
-.dropdown-toggle{
+.dropdown-toggle {
   border: 0px solid black !important;
 }
 
-.ant-picker-input input{
+.ant-picker-input input {
   border: none !important;
 }
 
-.landing{
+.landing {
   background-color: black !important;
   height: 100vh;
 }
 
-.landing-btn{
+.landing-btn {
   background-color: white !important;
   color: black !important;
   margin-top: 20px;

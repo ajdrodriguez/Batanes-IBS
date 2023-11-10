@@ -1,0 +1,33 @@
+.image-container {
+  position: relative;
+  overflow: hidden;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  margin-top: 20px !important;
+  border-radius: 10px !important;
+  padding: 20px !important;
+}
+
+img {
+  transition: filter 0.5s ease;
+  border-radius: 10px !important;
+}
+
+.overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  text-align: center;
+  color: white;
+}
+
+.image-container:hover img {
+  filter: blur(2px);
+  filter: brightness(0.4);
+}
+
+.image-container:hover .overlay {
+  opacity: 1;
+}

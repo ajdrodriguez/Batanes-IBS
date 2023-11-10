@@ -56,7 +56,7 @@ function Navbar() {
               className={click ? "nav-links-mobile" : "nav-links"}
               onClick={closeMobileMenu}
             >
-              Rooms
+              Tour Packages
             </Link>
           </li>
           {user ? (
