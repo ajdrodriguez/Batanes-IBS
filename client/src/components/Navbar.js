@@ -34,8 +34,8 @@ function Navbar() {
     <nav className="navbar">
       <div className="navbar-container">
         <Link to="/" className="navbar-logo" onClick={closeMobileMenu}>
-          <img src="/images/logo.png" />
-          <img src="/images/companyName.png" />
+          <img src="/images/logo.png" alt="Logo" />
+          <img src="/images/companyName.png" alt="Company Name" />
         </Link>
         <div className="menu-icon" onClick={handleClick}>
           <i className={click ? "fas fa-times" : "fas fa-bars"}></i>
@@ -59,33 +59,39 @@ function Navbar() {
               Tour Packages
             </Link>
           </li>
+          {/* Add the "Custom Package" link outside of the dropdown */}
+          <li className="nav-item">
+            <Link
+              to="/custom-package"
+              className={click ? "nav-links-mobile" : "nav-links"}
+              onClick={closeMobileMenu}
+            >
+              Custom Package
+            </Link>
+          </li>
           {user ? (
-            <>
-              <div class="dropdown">
-                <button
-                  class={
-                    click ? "nav-links-mobile" : "nav-links dropdown-toggle"
-                  }
-                  type="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  <i class="fa fa-user"></i> {user.name}
-                </button>
-                <ul class="dropdown-menu">
-                  <li>
-                    <a class="dropdown-item" href="/profile">
-                      Profile
-                    </a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="#" onClick={LogOut}>
-                      Logout
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </>
+            <div className="dropdown">
+              <button
+                className={click ? "nav-links-mobile" : "nav-links dropdown-toggle"}
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <i className="fa fa-user"></i> {user.name}
+              </button>
+              <ul className="dropdown-menu">
+                <li>
+                  <Link to="/profile" className="dropdown-item" onClick={closeMobileMenu}>
+                    Profile
+                  </Link>
+                </li>
+                <li>
+                  <a className="dropdown-item" href="#" onClick={LogOut}>
+                    Logout
+                  </a>
+                </li>
+              </ul>
+            </div>
           ) : (
             <>
               <li className="nav-item">
@@ -111,13 +117,15 @@ function Navbar() {
         </ul>
         {button && !user && (
           <Button buttonStyle="btn--outline">
-            <i className="fa-solid fa-user" style={{ color: "#0B3942" }} /> Log
-            In
+            <i className="fa-solid fa-user" style={{ color: "#0B3942" }} /> Log In
           </Button>
         )}
       </div>
     </nav>
   );
+  
+  
+  
 }
 
 export default Navbar;

@@ -1,0 +1,18 @@
+.table-container {
+  overflow-y: auto;
+  max-height: 300px;
+  border: 2px solid #333; /* Adjust the border color and width */
+  border-radius: 5px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 8px;
+  border: 2px solid #333; /* Adjust the border color and width */
+  text-align: left;
+}

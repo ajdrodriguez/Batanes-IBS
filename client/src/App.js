@@ -9,6 +9,7 @@ import LoginScreen from './screens/LoginScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import AdminScreen from './screens/AdminScreen';
 import LandingScreen from './screens/LandingScreen';
+import CustomTour from './screens/CustomTour';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       <Navbar />
         <Routes>
           <Route path="/home" element={<HomeScreen/>}></Route>
+          <Route path="/custom-package" element={<CustomTour/>}></Route>
           <Route path='/book/:roomid/:fromDate/:toDate' element={<BookingScreen/>}></Route>
           <Route path='/register' element={<RegisterScreen/>}></Route>
           <Route path='/login' element={<LoginScreen/>}></Route>
