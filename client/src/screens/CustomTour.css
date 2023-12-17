@@ -1,7 +1,7 @@
 .table-container {
   overflow-y: auto;
   max-height: 300px;
-  border: 2px solid #333; /* Adjust the border color and width */
+  border: 1px solid #333; /* Adjust the border color and width */
   border-radius: 5px;
 }
 
@@ -13,6 +13,28 @@
 .table th,
 .table td {
   padding: 8px;
-  border: 2px solid #333; /* Adjust the border color and width */
+  border: 1px solid #333; /* Adjust the border color and width */
   text-align: left;
 }
+.right-align {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  
+  /* Add spacing between the dropdown and the button */
+.right-align select {
+    margin-right: 8px; /* Adjust the margin as needed */
+  }
+
+  .custom-btn {
+    flex: 0.5;
+    /* Your existing styles for the button */
+    background-color: #007bff;
+    color: #fff;
+    /* Add more styles as needed */
+  
+    /* Additional styles for the button */
+    font-size: 16px;
+    /* Add more styles as needed */
+  }

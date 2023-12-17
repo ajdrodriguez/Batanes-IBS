@@ -1,274 +1,290 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { DatePicker } from "antd";
-import moment from "moment";
+import React, { useState } from "react";
 import { ImageList } from "@mui/material";
 import Room from "../components/Room";
 import Loader from "../components/Loader";
-import Error from "../components/Error";
-import "./Footer.css";
+import "./CustomTour.css";
 
-const { RangePicker } = DatePicker;
+const Transportation_options = {
+  "Cogon-Roof Tricycle": { 1: 1500, 2: 800 },
+  Van: {
+    1: 7000,
+    2: 3500,
+    3: 3000,
+    4: 2500,
+    5: 2500,
+    6: 1800,
+    7: 1800,
+    8: 1500,
+    9: 1500,
+    10: 1300,
+  },
+};
+const homestay_options = {
+  Homestay: {
+    1: 1500,
+    2: 1450,
+    3: 1400,
+    4: 1350,
+    5: 1300,
+    6: 1250,
+    7: 1200,
+    8: 1150,
+    9: 1100,
+    10: 1050,
+  },
+  "Mabuhay Accomodation": {
+    1: 3000,
+    2: 1900,
+    3: 1850,
+    4: 1800,
+    5: 1750,
+    6: 1700,
+    7: 1650,
+    8: 1600,
+    9: 1550,
+    10: 1500,
+  },
+};
+
+const tour_locations = {
+  "Batan North Island": {
+    1: 2500,
+    2: 2275,
+    3: 1600,
+    4: 1450,
+    5: 1400,
+    6: 1250,
+    7: 1200,
+    8: 1050,
+    9: 1050,
+    10: 1000,
+  },
+  "Batan South Island": {
+    1: 2525,
+    2: 2300,
+    3: 1625,
+    4: 1475,
+    5: 1500,
+    6: 1300,
+    7: 1275,
+    8: 1075,
+    9: 1075,
+    10: 1050,
+  },
+  Sabtang: {
+    1: 2550,
+    2: 2350,
+    3: 1650,
+    4: 1650,
+    5: 1500,
+    6: 1400,
+    7: 1300,
+    8: 1100,
+    9: 1100,
+    10: 1000,
+  },
+};
 
 function HomeScreen() {
-  const [rooms, setRooms] = useState([]);
-  const [loading, setLoading] = useState();
-  const [error, setError] = useState();
-  const [fromDate, setFromDate] = useState();
-  const [toDate, setToDate] = useState();
-  const [duplicateRooms, setDuplicateRooms] = useState();
-  const [searchKey, setSearchKey] = useState();
-  const [type, setType] = useState("all");
-  const [selectedDays, setSelectedDays] = useState('Days');
-  const [pax, setPax] = useState(1);
-  const [transportation, setTransportation] = useState('Transportation');
-  const [tourLocation, setTourLocation] = useState('Tour Locations');
-  const [homestayOption, setHomestayOption] = useState('Homestay Options');
+  const [rooms] = useState([]);
+  const [loading] = useState();
+  const [selectedDays, setSelectedDays] = useState("Days");
+  const [Pax, setPax] = useState(1);
+  const [Transportation, setTransportation] = useState("Transportation");
+  const [TourLocation, setTourLocation] = useState("Tour Locations");
+  const [HomestayOption, setHomestayOption] = useState("Homestay Options");
+  const [Budget, setBudget] = useState("Enter Budget");
   const [selectedValues, setSelectedValues] = useState({
-    pax: 1,
-    transportation: 'Transportation',
-    tourLocation: 'Tour Locations',
-    homestayOption: 'Homestay Options',
-    days: 'Days'
+    Pax: 1,
+    Transportation: "Transportation",
+    TourLocation: "Tour Locations",
+    HomestayOption: "Homestay Options",
+    Days: "Days",
   });
 
   // Function to update selected values and filter rooms
-  const updateSelectedValues = (key, value) => {
-    setSelectedValues((prevValues) => ({ ...prevValues, [key]: value }));
+  const maxval = (numbers, threshold) => {
+    const filteredNumbers = numbers.filter((num) => num <= threshold);
+    return filteredNumbers.length > 0 ? Math.max(...filteredNumbers) : null;
   };
 
-  const calculateTotal = () => {
-    const transportationCost = calculateTransportationCost();
-    const homestayCost = calculateHomestayCost();
-    const tourLocationCost = calculateTourLocationCost();
+  const minval = (numbers) =>
+    numbers.length > 0 ? Math.min(...numbers) : null;
 
-    // Sum the values
-    const total = transportationCost + homestayCost + tourLocationCost;
-
-    return total;
-  };
-
-  const transportationOptions = {
-    'Van': { 1: 7000, 2: 3500, 3: 3000, 4: 2500, 5: 2500, 6: 1800, 7: 1800, 8: 1500, 9: 1500, 10: 1300 },
-    'Cogon-Roof Tricycle': { 1: 1500, 2: 800 },
-  };
-
-  const homestayOptions = {
-    'Homestay': { 1: 1500, 2: 1450, 3: 1400, 4: 1350, 5: 1300, 6: 1250, 7: 1200, 8: 1150, 9: 1100, 10: 1050 },
-    'Mabuhay Accomodation': { 1: 3000, 2: 1900, 3: 1850, 4: 1800, 5: 1750, 6: 1700, 7: 1650, 8: 1600, 9: 1550, 10: 1500 },
-  };
-
-  const tourLocations = {
-    'Batan North Island': { 1: 2500, 2: 2275, 3: 1600, 4: 1450, 5: 1400, 6: 1250, 7: 1200, 8: 1050, 9: 1050, 10: 1000 },
-    'Batan South Island': { 1: 2525, 2: 2300, 3: 1625, 4: 1475, 5: 1500, 6: 1300, 7: 1275, 8: 1075, 9: 1075, 10: 1050 },
-    'Sabtang': { 1: 2550, 2: 2350, 3: 1650, 4: 1650, 5: 1500, 6: 1400, 7: 1300, 8: 1100, 9: 1100, 10: 1000 },
-  };
-
-  // Given algorithm
-  function maxVal(numbers, threshold) {
-    const filteredNumbers = numbers.filter(num => num <= threshold);
-    return filteredNumbers.length ? Math.max(...filteredNumbers) : null;
-  }
-
-  function minVal(numbers) {
-    return numbers.length ? Math.min(...numbers) : null;
-  }
-
-  function bestAlgo(budget, numPeople) {
+  const bestAlgo = (budget, numPeople) => {
     const total = [];
-    let finalOutput = [];
-    let currentTotal = 0;
     let index = 0;
     let innerCounter = 0;
 
-    for (const option1 in transportationOptions) {
-      const transportCosts = transportationOptions[option1];
+    for (const [option1, transportCosts] of Object.entries(
+      Transportation_options
+    )) {
       const transportCost = transportCosts[numPeople] || 0;
 
-      for (const option2 in homestayOptions) {
-        const homestayCosts = homestayOptions[option2];
+      for (const [option2, homestayCosts] of Object.entries(homestay_options)) {
         const homestayCost = homestayCosts[numPeople] || 0;
 
-        for (const option3 in tourLocations) {
-          const tourCosts = tourLocations[option3];
+        for (const [option3, tourCosts] of Object.entries(tour_locations)) {
           const tourCost = tourCosts[numPeople] || 0;
-
-          currentTotal = transportCost + homestayCost + tourCost;
+          const currentTotal = transportCost + homestayCost + tourCost;
           total.push(currentTotal);
-          currentTotal = 0;
         }
       }
     }
 
-    console.log(minVal(total));
-    let i = 0;
+    const minValue = minval(total);
+    const i = total.indexOf(minValue);
 
-    while (i < total.length) {
-      if (total[i] === minVal(total)) {
-        index = i;
-        break;
-      }
-      i += 1;
+    if (numPeople > 2) {
+      // Skip the first option
+      index = i + 1;
+    } else {
+      index = i;
     }
 
-    console.log(i);
-    console.log(total);
+    const finalOutput = [];
 
-    for (let i = 0; i < total.length; i++) {
+    for (const [i, option1] of Object.keys(Transportation_options).entries()) {
       if (i === 0 && numPeople > 2) {
         continue;
       }
 
-      for (const option1 in transportationOptions) {
-        for (const option2 in homestayOptions) {
-          for (const option3 in tourLocations) {
-            innerCounter += 1;
-            console.log(innerCounter);
+      for (const option2 of Object.keys(homestay_options)) {
+        for (const option3 of Object.keys(tour_locations)) {
+          innerCounter += 1;
 
-            if (innerCounter - 1 >= index) {
-              finalOutput = [option1, option2, option3];
-              return finalOutput;
-            }
+          if (innerCounter - 1 >= index) {
+            finalOutput.push(option1, option2, option3);
+            return finalOutput;
           }
         }
       }
     }
 
     return finalOutput;
-  }
+  };
+
+  const updateSelectedValues = (key, value) => {
+    setSelectedValues((prevValues) => ({ ...prevValues, [key]: value }));
+  };
 
   const calculateHomestayCost = () => {
-    const selectedHomestayOption = selectedValues.homestayOption;
-    const selectedPax = selectedValues.pax;
-    const selectedDays = parseInt(selectedValues.days, 10); // Assuming 'days' is the key for the selected number of days
+    const selectedHomestayOption = selectedValues.HomestayOption;
+    const selectedPax = selectedValues.Pax;
+    const selectedDays = parseInt(selectedValues.Days, 10);
 
     let cost = 0;
 
-    if (selectedHomestayOption === 'Homestay') {
+    if (selectedHomestayOption === "Homestay") {
       cost = homestay_options[selectedHomestayOption][selectedPax] || 0;
-    } else if (selectedHomestayOption === 'Mabuhay Accomodation') {
+    } else if (selectedHomestayOption === "Mabuhay Accomodation") {
       cost = homestay_options[selectedHomestayOption][selectedPax] || 0;
     }
 
-    return cost * selectedDays || '';
+    return cost * selectedDays || "";
   };
 
-  // Function to calculate the total based on the selected tour location
   const calculateTourLocationCost = () => {
-    const selectedTourLocation = selectedValues.tourLocation;
-    const selectedPax = selectedValues.pax;
+    const selectedTourLocation = selectedValues.TourLocation;
+    const selectedPax = selectedValues.Pax;
 
     if (tour_locations[selectedTourLocation]) {
-      return tour_locations[selectedTourLocation][selectedPax] || '';
+      return tour_locations[selectedTourLocation][selectedPax] || "";
     }
 
-    return '';
+    return "";
   };
 
   const calculateTransportationCost = () => {
-    const selectedTransportation = selectedValues.transportation;
-    const selectedPax = selectedValues.pax;
+    const selectedTransportation = selectedValues.Transportation;
+    const selectedPax = selectedValues.Pax;
 
-    if (transportation_options[selectedTransportation]) {
-      return transportation_options[selectedTransportation][selectedPax] || '';
+    if (Transportation_options[selectedTransportation]) {
+      return Transportation_options[selectedTransportation][selectedPax] || "";
     }
 
-    return '';
+    return "";
   };
+
+  const calculateTotal = () => {
+    const TransportationCost = calculateTransportationCost();
+    const homestayCost = calculateHomestayCost();
+    const TourLocationCost = calculateTourLocationCost();
+
+    // Check if all costs are available before calculating total
+    if (
+      TransportationCost !== "" &&
+      homestayCost !== "" &&
+      TourLocationCost !== ""
+    ) {
+      const total = TransportationCost + homestayCost + TourLocationCost;
+      return total;
+    } else {
+      return "Incomplete";
+    }
   };
 
-  // Run the algorithm on component mount
-  useEffect(() => {
-    const budget = 10000; // Set your budget
-    const numPeople = 3; // Set the number of people
-    const results = bestAlgo(budget, numPeople);
-    setAlgorithmResults(results);
-  }, []);
+  const handleBudgetChange = (e) => {
+    const budgetValue = parseInt(e.target.value, 10);
 
-  const [algorithmResults, setAlgorithmResults] = useState(null);
-
-  function filterByDate(dates) {
-    if (dates) {
-      setFromDate(dates[0].format("MM-DD-YYYY"));
-      setToDate(dates[1].format("MM-DD-YYYY"));
-
-      //tempRooms
-      var tempRooms = [];
-
-      for (const room of duplicateRooms) {
-        var availability = false;
-
-        if (room.currentBookings.length > 0) {
-          for (const booking of room.currentBookings) {
-            if (
-              !moment(moment(dates[0]).format("MM-DD-YYYY")).isBetween(
-                booking.fromDate,
-                booking.toDate
-              ) &&
-              !moment(moment(dates[1]).format("MM-DD-YYYY")).isBetween(
-                booking.fromDate,
-                booking.toDate
-              )
-            ) {
-              if (
-                dates[0].format("MM-DD-YYYY") !== booking.fromDate &&
-                dates[0].format("MM-DD-YYYY") !== booking.toDate &&
-                dates[1].format("MM-DD-YYYY") !== booking.fromDate &&
-                dates[1].format("MM-DD-YYYY") !== booking.toDate
-              ) {
-                availability = true;
-              }
-            }
-          }
-        } else {
-          availability = true;
-        }
-
-        if (availability === true) {
-          tempRooms.push(room);
-        }
-      }
-
-      setRooms(tempRooms);
+    // Check if the parsed value is a valid number
+    if (!isNaN(budgetValue)) {
+      setBudget(budgetValue);
     } else {
-      setFromDate(null);
-      setToDate(null);
+      setBudget(0); // Setting a default value (you can adjust as needed)
     }
-  }
+  };
 
-  function filterBySearch() {
-    const tempRooms = duplicateRooms.filter((room) => {
-      const roomName = room.name.toLowerCase();
-      return searchKey ? roomName.includes(searchKey.toLowerCase()) : true;
-    });
+  const handleRecommendation = () => {
+    const result = bestAlgo(Budget, Pax);
 
-    setRooms(tempRooms);
-  }
+    // Update selected values based on the algorithm result
+    if (result.length === 3) {
+      setTransportation(result[0]);
+      setHomestayOption(result[1]);
+      setTourLocation(result[2]);
 
-  function filterByType(e) {
-    setType(e);
-    if (e !== "all") {
-      const tempRooms = duplicateRooms.filter(
-        (room) =>
-          e.toLowerCase() === "all" ||
-          room.type.toLowerCase() === e.toLowerCase()
-      );
-      setRooms(tempRooms);
+      // Update selected values state
+      setSelectedValues({
+        Pax: Pax,
+        Transportation: result[0],
+        TourLocation: result[2],
+        HomestayOption: result[1],
+        Days: selectedDays,
+      });
+
+      // Show alert with the recommended package
+      alert(`Recommended Package: ${result.join(", ")}`);
     } else {
-      setRooms(duplicateRooms);
+      alert("No recommended package found."); // Handle the case where no package is recommended
     }
-  }
+  };
 
   return (
     <div className="container">
       <div className="row mt-5 bs">
         <div className="col-md-3">
+          {/* Budget input */}
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Enter Budget"
+            value={Budget}
+            onChange={handleBudgetChange} // Listen to user input
+          />
+        </div>
+
+        <div className="col-md-3">
+          {/* Num People based on Pax selection */}
+          <p>Number of People: {Pax}</p>
+        </div>
+        <div className="col-md-3">
           {/* Pax selection */}
           <select
-            value={pax}
+            value={Pax}
             onChange={(e) => {
               setPax(e.target.value);
-              updateSelectedValues("pax", e.target.value);
+              updateSelectedValues("Pax", e.target.value);
             }}
           >
             {[...Array(10).keys()].map((num) => (
@@ -283,9 +299,9 @@ function HomeScreen() {
           <select
             value={selectedDays}
             onChange={(e) => {
-              const days = parseInt(e.target.value, 10);
-              setSelectedDays(days);
-              updateSelectedValues("days", days);
+              const Days = parseInt(e.target.value, 10);
+              setSelectedDays(Days);
+              updateSelectedValues("Days", Days);
             }}
           >
             <option value="Days">Days</option>
@@ -298,10 +314,10 @@ function HomeScreen() {
         <div className="col-md-3">
           {/* Transportation selection */}
           <select
-            value={transportation}
+            value={Transportation}
             onChange={(e) => {
               setTransportation(e.target.value);
-              updateSelectedValues("transportation", e.target.value);
+              updateSelectedValues("Transportation", e.target.value);
             }}
           >
             <option value="Transportation">Transportation</option>
@@ -312,10 +328,10 @@ function HomeScreen() {
         <div className="col-md-3">
           {/* Tour Location selection */}
           <select
-            value={tourLocation}
+            value={TourLocation}
             onChange={(e) => {
               setTourLocation(e.target.value);
-              updateSelectedValues("tourLocation", e.target.value);
+              updateSelectedValues("TourLocation", e.target.value);
             }}
           >
             <option value="Tour Locations">Tour Locations</option>
@@ -327,19 +343,29 @@ function HomeScreen() {
 
         <div className="col-md-3">
           <select
-            value={homestayOption}
+            value={HomestayOption}
             onChange={(e) => {
               setHomestayOption(e.target.value);
-              updateSelectedValues("homestayOption", e.target.value);
+              updateSelectedValues("HomestayOption", e.target.value);
             }}
           >
             <option value="Homestay Options">Homestay Options</option>
             <option value="Homestay">Homestay</option>
             <option value="Mabuhay Accomodation">Mabuhay Accomodation</option>
           </select>
+          <div className="right-align">
+            <button
+              className="btn btn-primary form-select custom-btn"
+              onClick={handleRecommendation}
+            >
+              Recommend a Package For {Pax} People
+            </button>
+          </div>
         </div>
       </div>
 
+      {/* Display selected values in a table */}
+      {/* Display selected values in a table */}
       {/* Display selected values in a table */}
       <div className="row mt-3">
         <h4>Selected Values</h4>
@@ -355,10 +381,16 @@ function HomeScreen() {
               {Object.entries(selectedValues).map(([key, value]) => (
                 <tr key={key}>
                   <td>{key}</td>
-                  <td>{value === 'Days' || value === 'Transportation' || value === 'Tour Locations' || value === 'Homestay Options' ? '' : value}</td>
+                  <td>
+                    {value === "Days" ||
+                    value === "Transportation" ||
+                    value === "Tour Locations" ||
+                    value === "Homestay Options"
+                      ? ""
+                      : value}
+                  </td>
                 </tr>
               ))}
-              {/* Include the selected days in the table */}
               <tr>
                 <td>Transportation Cost</td>
                 <td>{calculateTransportationCost()}</td>
@@ -380,20 +412,17 @@ function HomeScreen() {
         </div>
       </div>
 
-      {/* Algorithm results */}
       <div className="row mt-3">
-        <h4>Algorithm Results</h4>
-        {algorithmResults ? (
-          <ul>
-            <li>Transportation: {algorithmResults[0]}</li>
-            <li>Homestay: {algorithmResults[1]}</li>
-            <li>Tour Location: {algorithmResults[2]}</li>
-          </ul>
-        ) : (
-          <p>No results yet. Run the algorithm to see the options.</p>
-        )}
+        <button
+          className="btn btn-success"
+          onClick={() => {
+            // Implement logic for booking now
+            alert("Book now");
+          }}
+        >
+          Book now
+        </button>
       </div>
-
       <div className="row mt-5">
         {loading ? (
           <Loader />
@@ -403,11 +432,11 @@ function HomeScreen() {
               <Room
                 key={room.id} // Make sure to provide a unique key
                 room={room}
-                pax={pax}
-                transportation={transportation}
-                tourLocation={tourLocation}
-                homestayOption={homestayOption}
-                days={selectedDays}
+                Pax={Pax}
+                Transportation={Transportation}
+                TourLocation={TourLocation}
+                HomestayOption={HomestayOption}
+                Days={selectedDays}
               >
                 {" "}
               </Room>
